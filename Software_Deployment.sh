@@ -116,4 +116,4 @@ else
 	echo "libncurses5-dev is already installed"
 fi
 
-nyancat
+
