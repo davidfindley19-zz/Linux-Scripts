@@ -28,6 +28,7 @@ function ipmi_license()
     read -p "Installing new license on host: $ipaddress. Continue? (Y/N) " keyresponse
         if [[ $keyresponse == Y ]]; then
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ActivateProductKey --key $licensekey
+            read -p "Press [Enter] key to continue..."
         else
             echo "Returning to menu."
             clear
@@ -42,6 +43,7 @@ function set_nvme()
         if [[ $nvmeresponse == Y ]]; then
             echo "Installing file nvme_gpu111419.ini. If this fails, please try manual installation."
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ChangeBiosCfg --file /global/temp/bios_ini/file_name.ini
+            read -p "Press [Enter] key to continue..."
         else 
             echo "Returning to menu."
             clear
@@ -56,6 +58,7 @@ function set_master()
         if [[ $cmosresponse == Y ]]; then
             echo "Installing file master_gpu_111219.ini. If this fails, please try manual installation."
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ChangeBiosCfg --file /global/temp/bios_ini/file_name.ini
+            read -p "Press [Enter] key to continue..."
         else
             echo "Returning to menu."
             clear
@@ -69,6 +72,7 @@ function set_pxe()
     read -p "Continue? (Y/N) " pxeresponse
         if [[ $pxeresponse == Y ]]; then                                                                                                                                                                                           
             ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis bootdev pxe options=persistent
+            read -p "Press [Enter] key to continue..."
         else
             echo "Returning to menu."
             clear
@@ -82,6 +86,7 @@ function power_cycle()
     read -p "Continue? (Y/N) " rebootresponse
         if [[ $rebootresonse == Y ]]; then
             ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis power reset
+            read -p "Press [Enter] key to continue..."
         else
             echo "Returning to menu."
             clear
