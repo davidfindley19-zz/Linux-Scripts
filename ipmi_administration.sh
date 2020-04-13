@@ -29,6 +29,7 @@ function ipmi_license()
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ActivateProductKey --key $licensekey
         else
             echo "Returning to menu."
+            clear
         fi
 }
 
@@ -41,6 +42,7 @@ function set_nvme()
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ChangeBiosCfg --file /global/temp/bios_ini/file_name.ini
         else 
             echo "Returning to menu."
+            clear
         fi
 }
 
@@ -53,6 +55,7 @@ function set_master()
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ChangeBiosCfg --file /global/temp/bios_ini/file_name.ini
         else
             echo "Returning to menu."
+            clear
         fi
 }
 
