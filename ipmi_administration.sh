@@ -9,11 +9,16 @@ echo "IPMI Administration Tool"
 
 read -p 'Please enter the IPMI IP address to work with: ' ipaddress
 clear
+
+function system_summary()
+{
 ipmistatus=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis status | grep 'System Power' | awk '{print $4 }' )
 ipmimacaddress=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress lan print | grep 'MAC Address' | awk '{print $4, $14 }')
-printf '\e[1;33m%s\e[0m\n'"The current IP address being used is: $ipaddress " 
-printf '\e[1;33m%s\e[0m\n'"The system's MAC address is: $ipmimacaddress " 
-printf '\e[1;32m%s\e[0m\n' "The system is currently powered $ipmistatus "
+printf "\nThe current IP address being used is: $ipaddress "
+printf "\nThe system's MAC address is: $ipmimacaddress "
+printf  "\nThe system is currently powered $ipmistatus "
+echo
+}
 
 function ipmi_license()
 {
@@ -103,6 +108,7 @@ function read_options()
 
 while true
     do
+    system_summary
     menu
     read_options
 done
