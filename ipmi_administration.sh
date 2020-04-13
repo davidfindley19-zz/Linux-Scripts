@@ -16,14 +16,15 @@ ipmistatus=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis status | grep 'Sys
 ipmimacaddress=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress lan print | grep 'MAC Address' | awk '{print $4, $14 }')
 printf "\nThe current IP address being used is: $ipaddress "
 printf "\nThe system's MAC address is: $ipmimacaddress "
-printf  "\nThe system is currently powered $ipmistatus "
+printf "\nThe system is currently powered $ipmistatus "
 echo
 }
 
 function ipmi_license()
 {
-    echo "\n New license install..."
+    printf "\nNew license install..."
     read -p "Please enter the license key to use for activation: " licensekey
+    echo
     read -p "Installing new license on host: $ipaddress. Continue? (Y/N) " keyresponse
         if [[ $keyresponse == Y ]]; then
             /global/tmp/path/firmware/smc/tools/SUM/sum -i $ipaddress -u ADMIN -p ADMIN -c ActivateProductKey --key $licensekey
@@ -35,7 +36,8 @@ function ipmi_license()
 
 function set_nvme()
 {
-    echo "\n Loading new INI file for NVME settings..."
+    printf "\nLoading new INI file for NVME settings..."
+    echo
     read -p "Would you like to continue? (Y/N) " nvmeresponse
         if [[ $nvmeresponse == Y ]]; then
             echo "Installing file nvme_gpu111419.ini. If this fails, please try manual installation."
@@ -48,7 +50,8 @@ function set_nvme()
 
 function set_master()
 {
-    echo "\n Loading new INI file for the master CMOS settings..."
+    printf "\nLoading new INI file for the master CMOS settings..."
+    echo
     read -p "Would you like to continue? (Y/N) " cmosresponse
         if [[ $cmosresponse == Y ]]; then
             echo "Installing file master_gpu_111219.ini. If this fails, please try manual installation."
@@ -75,6 +78,7 @@ function set_pxe()
 function power_cycle()
 {
     printf "\nRebooting the chassis..."
+    echo
     read -p "Continue? (Y/N) " rebootresponse
         if [[ $rebootresonse == Y ]]; then
             ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis power reset
@@ -86,13 +90,15 @@ function power_cycle()
 
 function menu()
 {
+    echo
     echo "*******************************"
-    echo "1) Install new IPMI License "
-    echo "2) Set NVME CMOS Settings "
-    echo "3) Set Master CMSO Setting"
-    echo "4) Set chassis PXE settings "
-    echo "5) Power cycle the chassis "
-    echo "6) Exit"
+    echo
+    printf "\n1) Install new IPMI License "
+    printf "\n2) Set NVME CMOS Settings "
+    printf "\n3) Set Master CMSO Setting"
+    printf "\n4) Set chassis PXE settings "
+    printf "\n5) Power cycle the chassis "
+    printf "\n6) Exit"
 }
 
 function read_options()
