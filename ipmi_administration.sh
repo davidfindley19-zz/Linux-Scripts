@@ -100,7 +100,7 @@ function menu()
     echo
     printf "\n1) Install new IPMI License "
     printf "\n2) Set NVME CMOS Settings "
-    printf "\n3) Set Master CMSO Setting"
+    printf "\n3) Set Master CMOS Setting"
     printf "\n4) Set chassis PXE settings "
     printf "\n5) Power cycle the chassis "
     printf "\n6) Exit"
