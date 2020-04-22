@@ -10,16 +10,18 @@ echo "IPMI Administration Tool"
 read -p 'Please enter the IPMI IP address to work with: ' ipaddress
 clear
 
+# Displaying the status of the machine connected to. MAC is required to generate a SUM key for the BIOS.
 function system_summary()
 {
-ipmistatus=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis status | grep 'System Power' | awk '{print $4 }' )
-ipmimacaddress=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress lan print | grep 'MAC Address' | awk '{print $4, $14 }')
-printf "\nThe current IP address being used is: $ipaddress "
-printf "\nThe system's MAC address is: $ipmimacaddress "
-printf "\nThe system is currently powered $ipmistatus "
-echo
+    ipmistatus=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress chassis status | grep 'System Power' | awk '{print $4 }' )
+    ipmimacaddress=$(ipmitool -U ADMIN -P ADMIN -H $ipaddress lan print | grep 'MAC Address' | awk '{print $4, $14 }')
+    printf "\nThe current IP address being used is: $ipaddress "
+    printf "\nThe system's MAC address is: $ipmimacaddress "
+    printf "\nThe system is currently powered $ipmistatus "
+    echo
 }
 
+# First function since no settings can be set without a key being activated.
 function ipmi_license()
 {
     printf "\nNew license install..."
@@ -35,6 +37,7 @@ function ipmi_license()
         fi
 }
 
+# On our system, we can't use both NVME drives without setting this file. Use case could be different per system.
 function set_nvme()
 {
     printf "\nLoading new INI file for NVME settings..."
@@ -50,6 +53,7 @@ function set_nvme()
         fi
 }
 
+# Changes the boot order for the system and removes extraneous boot options.
 function set_master()
 {
     printf "\nLoading new INI file for the master CMOS settings..."
@@ -65,6 +69,7 @@ function set_master()
         fi
 }
 
+# All nodes PXE boot, this sets a persistent PXE setting in the BIOS for boot order.
 function set_pxe()
 {
     printf "\nSetting chassis boot settings to PXE. This will be a persistent change."
@@ -78,7 +83,8 @@ function set_pxe()
             clear
         fi                                                                                                                                                                                                 
 }
-                                                                                                                                                                                                                   
+
+# Resets the power on the chassis.                                                                                                                                                                                                                   
 function power_cycle()
 {
     printf "\nRebooting the chassis..."
