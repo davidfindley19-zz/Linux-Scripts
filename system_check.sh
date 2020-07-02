@@ -12,6 +12,7 @@ Hostname        : `hostname`
 Kernel Version  : `uname -r`
 Uptime          : `uptime | sed 's/.*up \([^,]*\), .*/\1/'`
 Last Reboot     : `who -b | awk '{print $3,$4}'`
+
 Git Status      : `git status`
 "
 
