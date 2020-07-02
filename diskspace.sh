@@ -7,4 +7,5 @@ do
   if [ $usep -ge 90 ]; then
     echo "Running out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" |
     mail -s "Alert: Almost out of disk space $usep%" -aFrom:email@email.com email1@email.com,email2@email.com
+    fi
 done
