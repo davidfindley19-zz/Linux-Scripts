@@ -5,7 +5,7 @@
 # Date: January 28, 2021
 # Version: 1.0
 
-## Basic VBoxManage commands. Listing, starting, stopping, etc. 
+## Basic VBoxManage commands. Listing, starting, stopping, deploying, etc. 
 function vm_list()
 {
     echo
