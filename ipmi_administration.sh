@@ -7,7 +7,7 @@
 
 echo "IPMI Administration Tool"
 
-read -p 'Please enter the IPMI IP address to work with: ' ipaddress
+ipaddress=$1
 clear
 
 # Displaying the status of the machine connected to. MAC is required to generate a SUM key for the BIOS.
